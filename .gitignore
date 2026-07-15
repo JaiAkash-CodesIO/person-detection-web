@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+.env
+
+# VS Code
+.vscode/
+
+# Python cache
+*.log
+
+# Model files
+backend/models/*.pt
+backend/models/*.onnx
+
+# Dataset
+datasets/
+runs/
+
+# Images
+*.jpg
+*.png
+
+# Flask cache
+instance/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+/models/

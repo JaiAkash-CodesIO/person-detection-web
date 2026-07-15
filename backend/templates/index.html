@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Person Detection System</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+
+            <h1>Person Detection System</h1>
+
+            <p>RT-DETR-L Live Camera Monitoring</p>
+
+        </header>
+
+        <!-- Camera Controls -->
+        <div class="camera-controls">
+
+            <label for="cameraSelect">Camera Source:</label>
+
+            <select id="cameraSelect">
+
+                <option value="laptop">
+                    💻 Laptop Camera
+                </option>
+
+                <option value="rtsp">
+                    📹 IP Camera (RTSP)
+                </option>
+
+            </select>
+
+            <button id="connectBtn">
+                Connect
+            </button>
+
+        </div>
+
+        <!-- Camera Card -->
+        <div class="camera-card">
+
+            <!-- Status -->
+            <div class="status-bar">
+
+                <span id="status">
+                    🔴 Camera Disconnected
+                </span>
+
+                <span id="persons">
+                    Persons : 0
+                </span>
+
+            </div>
+
+            <!-- Live Video -->
+            <img
+                id="video"
+                src=""
+                alt="Live Camera Feed">
+
+        </div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
