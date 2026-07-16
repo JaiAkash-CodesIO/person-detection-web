@@ -1,6 +1,6 @@
 from flask import Flask, Response, jsonify, render_template, request
 import cv2
-
+import time
 from detector import PersonDetector
 from config import RTSP_URL
 
@@ -14,6 +14,8 @@ detector = PersonDetector()
 
 # Global person count
 person_count = 0
+fps = 0
+prev_time = time.time()
 
 
 @app.route("/")
@@ -58,6 +60,8 @@ def generate():
 
     global camera
     global person_count
+    global fps
+    global prev_time
 
     while True:
 
@@ -68,6 +72,11 @@ def generate():
 
         if not success:
             continue
+
+        # Calculate FPS
+        current_time = time.time()
+        fps = 1 / (current_time - prev_time)
+        prev_time = current_time
 
         try:
 
@@ -91,16 +100,26 @@ def generate():
                 cv2.putText(
                     frame,
                     f"Person {score:.2f}",
-                    (x1, max(y1 - 10, 20)),
+                    (x1, max(20, y1 - 10)),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     0.7,
-                    (0, 255, 0),
+                    (0,255,0),
                     2
                 )
 
         except Exception as e:
-
             print("Detector Error:", e)
+
+        # Display FPS on frame
+        cv2.putText(
+            frame,
+            f"FPS : {fps:.2f}",
+            (20,40),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            1,
+            (0,255,255),
+            2
+        )
 
         ret, buffer = cv2.imencode(".jpg", frame)
 
@@ -139,11 +158,13 @@ def status():
 
     return jsonify({
 
-        "camera": connected,
+    "camera": connected,
 
-        "persons": person_count
+    "persons": person_count,
 
-    })
+    "fps": round(fps,2)
+
+})
 
 
 if __name__ == "__main__":

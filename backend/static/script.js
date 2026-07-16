@@ -51,21 +51,22 @@ setInterval(async()=>{
 
         const data = await response.json();
 
-        document.getElementById("persons").innerHTML =
-            "Persons : " + data.persons;
+        document.getElementById("persons").innerHTML = data.persons;
+
+        document.getElementById("fps").innerHTML = data.fps;
 
         document.getElementById("status").innerHTML =
             data.camera
-            ? "🟢 Camera Connected"
-            : "🔴 Camera Disconnected";
+            ? "🟢 Connected"
+            : "🔴 Disconnected";
 
     }
 
     catch{
 
         document.getElementById("status").innerHTML =
-            "🔴 Server Offline";
+            "🔴 Offline";
 
     }
 
-},1000);
+},500);
