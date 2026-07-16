@@ -33,6 +33,15 @@ document
     }
 
 });
+document.getElementById("disconnectBtn").addEventListener("click", async () => {
+
+    await fetch("/disconnect_camera", {
+        method: "POST"
+    });
+
+    document.getElementById("video").src = "";
+
+});
 
 setInterval(async()=>{
 
